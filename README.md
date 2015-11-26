@@ -28,4 +28,8 @@ for it as follows:
 
     <div sticky use-placeholder>I'm all sticky</div>
 
+To keep a width identical to it's parent
+
+    <div sticky parent-width>I'm all sticky</div>
+
 See the example directory for a working example.

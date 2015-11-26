@@ -19,8 +19,8 @@ angular.module("sticky", []).directive("sticky", function($window) {
 
               if (item.placeholder) {
                 item.placeholder = angular.element("<div></div>")
-                    .css({height: item.element.outerHeight() + "px"})
-                    .insertBefore(item.element);
+                  .css({height: item.element.outerHeight() + "px"})
+                  .insertBefore(item.element);
               }
             }
             else if (item.isStuck && pos < item.start) {
@@ -32,6 +32,7 @@ angular.module("sticky", []).directive("sticky", function($window) {
                 item.placeholder = true;
               }
             }
+            checkItemWidth(item);
           }
         });
 
@@ -43,7 +44,14 @@ angular.module("sticky", []).directive("sticky", function($window) {
             } else if (item.placeholder) {
               item.start = item.placeholder.offset().top;
             }
+            checkItemWidth(item);
           }
+        };
+        function checkItemWidth(item) {
+          if (!item.parentWidth) {
+            return;
+          }
+          item.element.css('width', item.isStuck ? (item.parent.innerWidth() + 'px') : '');
         };
         $win.bind("load", recheckPositions);
         $win.bind("resize", recheckPositions);
@@ -51,8 +59,10 @@ angular.module("sticky", []).directive("sticky", function($window) {
 
       var item = {
         element: element,
+        parent: element.parent(),
         isStuck: false,
         placeholder: attrs.usePlaceholder !== undefined,
+        parentWidth: attrs.parentWidth !== undefined,
         start: element.offset().top
       };
 
