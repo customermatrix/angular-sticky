@@ -51,7 +51,10 @@ angular.module("sticky", []).directive("sticky", function($window) {
           if (!item.parentWidth) {
             return;
           }
-          item.element.css('width', item.isStuck ? (item.parent.innerWidth() + 'px') : '');
+          item.element.css({
+            width: item.isStuck ? (item.parent.innerWidth() + 'px') : '',
+            left: item.isStuck ? ((item.parent.offset().left - window.scrollX) + 'px') : ''
+          });
         };
         $win.bind("load", recheckPositions);
         $win.bind("resize", recheckPositions);
