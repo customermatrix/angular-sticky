@@ -53,9 +53,9 @@ angular.module("sticky", []).directive("sticky", function($window) {
           }
           item.element.css({
             width: item.isStuck ? (item.parent.innerWidth() + 'px') : '',
-            left: item.isStuck ? ((item.parent.offset().left - window.scrollX) + 'px') : ''
+            left: item.isStuck ? ((item.parent.offset().left - $win.scrollLeft()) + 'px') : ''
           });
-        };
+        }
         $win.bind("load", recheckPositions);
         $win.bind("resize", recheckPositions);
       }
